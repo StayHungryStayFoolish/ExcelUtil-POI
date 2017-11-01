@@ -20,18 +20,31 @@ import java.util.Map;
 /**
  * Created by bonismo@hotmail.com
  * 上午10:32 on 17/11/1.
+ *
+ * 分析并读取 Excel
  */
 public class ReadExcel {
 
-    public static void main(String[] args) throws IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {
-        File path = new File("/Users/bonismo/Desktop/1023.xls");
-        String[] columnName = new String[]{"orgCode", "orgName", "userCode", "userName"};
-        List<ImportExcelBean> list = ReadExcel.parse(ImportExcelBean.class, columnName, path);
-        for (ImportExcelBean excelBean : list) {
-            excelBean.getUserName();
-            System.out.println(excelBean.getUserName());
-        }
+    private static final String EXCEL_PATH = "/Users/bonismo/Desktop/1023.xls";
 
+    public static void read(String filePath) {
+        File path = new File(filePath);
+
+        /*********** 注：****************/
+        // 根据 Excel 列数量，值需要更改
+        // 获得 Excel
+        String[] columnName = new String[]{Constant.EXPORT_ORG_CODE,Constant.EXPORT_ORG_NAME, Constant.EXPORT_USER_CODE, Constant.EXPORT_USER_NAME};
+
+        List<ImportExcelBean> list = null;
+        try {
+            list = ReadExcel.parse(ImportExcelBean.class, columnName, path);
+            for (ImportExcelBean excelBean : list) {
+                excelBean.getUserName();
+                System.out.println(excelBean.getUserName());
+            }
+        } catch (IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
