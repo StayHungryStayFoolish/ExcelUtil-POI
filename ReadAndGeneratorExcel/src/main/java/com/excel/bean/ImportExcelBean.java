@@ -8,4 +8,44 @@ package com.excel.bean;
  */
 public class ImportExcelBean {
 
+    private Integer orgCode;
+
+    private String orgName;
+
+    private String userCode;
+
+    private String userName;
+
+    /**************** get/set 方法 **********************/
+    public Integer getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(Integer orgCode) {
+        this.orgCode = orgCode;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
