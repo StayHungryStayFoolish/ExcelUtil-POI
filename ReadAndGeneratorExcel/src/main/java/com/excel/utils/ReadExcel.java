@@ -22,6 +22,7 @@ import java.util.Map;
  * 上午10:32 on 17/11/1.
  */
 public class ReadExcel {
+
     public static void main(String[] args) throws IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {
         File path = new File("/Users/bonismo/Desktop/1023.xls");
         String[] columnName = new String[]{"orgCode", "orgName", "userCode", "userName"};
@@ -33,6 +34,14 @@ public class ReadExcel {
 
     }
 
+    /**
+     * 根据传入的 Bean 类，域字段，文件路径分析 Excel
+     * @param cc Excel 对应的类模型（利用反应，反射机制处理）
+     * @param columnName Excel 列 对应的 Bean 域
+     * @param file Excel 文件路径
+     * @param <T> 泛型
+     * @return 返回 Bean 类的 List 集合
+     */
     public static <T> List<T> parse(Class<T> cc, String[] columnName, File file) throws IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {
         List<T> list = new ArrayList<T>();
         List<String[]> data = parse(file);
@@ -48,11 +57,16 @@ public class ReadExcel {
         return list;
     }
 
+    /**
+     * 根据传入的文件路径，分析 Excel
+     * @param file 文件路径
+     * @return String 数组的 List 集合
+     */
     public static List<String[]> parse(File file) throws IllegalAccessException, InvocationTargetException, InstantiationException, SecurityException, NoSuchMethodException {
         List<String[]> list = new ArrayList<>();
         try {
-            HSSFWorkbook wookbook = new HSSFWorkbook(new FileInputStream(file));
-            HSSFSheet sheet = wookbook.getSheetAt(0);
+            HSSFWorkbook workbook = new HSSFWorkbook(new FileInputStream(file));
+            HSSFSheet sheet = workbook.getSheetAt(0);
             int rows = sheet.getPhysicalNumberOfRows();
             int cols = sheet.getRow(0).getPhysicalNumberOfCells();
             // 遍历行,索引从0 开始，第0行可用作表头，不获取。
